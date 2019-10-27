@@ -117,12 +117,16 @@ public class RockPaperScisors {
     }
 
     public void summary() {
+        double percentage = (double) userScore / (userScore + compScore) * 100;
+
         if (userScore > compScore) {
-            System.out.println("You won with score: " + userScore + " vs. computer score: " + compScore);
+            System.out.printf("You won with score: %d  vs. computer score: %d, which is: %.0f%%", userScore, compScore, percentage);
+            //System.out.println("You won with score: " + userScore + " vs. computer score: " + compScore + "which is: "+percentage);
         } else if (userScore == compScore) {
             System.out.println("That is a TIE. Score is " + userScore);
         } else {
-            System.out.println("You lose! your score: " + userScore + " vs. computer score: " + compScore);
+            System.out.printf("You lose! your score: %d  vs. computer score: %d", userScore, compScore);
+            //System.out.println("You lose! your score: " + userScore + " vs. computer score: " + compScore);
         }
     }
 
