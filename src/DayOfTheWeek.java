@@ -4,23 +4,28 @@ public class DayOfTheWeek {
 
     private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
-    private static void dayAfterNumberDays(int number, String day) {
-        int weekdayNumberFromUser = Arrays.asList(weekDays).indexOf(day);
-        //        int weekdayAfterNumberDays = (number + weekdayNumberFromUser)% 7;
-        int weekdayAfterNumberDays = number + weekdayNumberFromUser;
+    private static void dayAfterNumberDays(String startWeekday, int daysForward ) {
+        int startWeekdayIndex = Arrays.asList(weekDays).indexOf(startWeekday);
 
-        //        System.out.println("Your day is: "+day + " after "+number+" days is: " +weekDays[weekdayAfterNumberDays]);
+        int newWeekdayIndex = positiveModulo(startWeekdayIndex + daysForward, weekDays.length);
+        System.out.println("Your day is: " + startWeekday + " after " + daysForward + " days is: " + weekDays[newWeekdayIndex]);
 
-        if(weekdayAfterNumberDays>=7){
-                int newWeekdayNumber = weekdayAfterNumberDays % 7;
-                String newDayName = weekDays[newWeekdayNumber];
-                System.out.println("Your day is: "+day + " after "+number+" days is: " +newDayName);
-            }else{
-                System.out.println("Your day is: "+day + " after "+number+" days is: " +weekDays[number+weekdayNumberFromUser]);
-            }
+        /*int newWeekdayIndex = (startWeekdayIndex + daysForward) % 7;
+        if (newWeekdayIndex<0){
+            newWeekdayIndex +=7;
+        }
+            System.out.println("Your day is: " + startWeekday + " after " + daysForward + " days is: " + weekDays[newWeekdayIndex]);*/
+    }
+
+
+        // a % b  -----> positive
+    private static int positiveModulo(int a, int b){
+        int modulo = a%b;
+        //a % b <0 ? (a % b)+b : a % b;
+        return modulo <0 ? (modulo)+b : modulo;
     }
 
     public static void main(String[] args) {
-        dayAfterNumberDays(2,"Wednesday");
+        dayAfterNumberDays("Sunday", -8);
     }
 }
