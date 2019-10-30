@@ -34,4 +34,13 @@ public class Person {
     public String getEmail() { return email; }
 
 
+    public void save(ConnectionDatabase cd){
+        //cd.ConnectionToDB();
+
+    }
+    public void search(ConnectionDatabase cd){
+        //cd.ConnectionToDB();
+
+    }
+
 }
