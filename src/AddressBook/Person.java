@@ -1,5 +1,9 @@
 package AddressBook;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Person {
     private String name;
     private String surname;
@@ -34,8 +38,12 @@ public class Person {
     public String getEmail() { return email; }
 
 
-    public void save(ConnectionDatabase cd){
-        //cd.ConnectionToDB();
+    public void save(Connection cd) throws SQLException {
+        Statement st = cd.createStatement();
+        st.executeUpdate("INSERT INTO Person " +
+                "VALUES ('Kasia', 'Simpson', 'Mr.', 'Springfield', 2001, '123345', 'emails@emails.pl')");
+
+        cd.close();
 
     }
     public void search(ConnectionDatabase cd){
