@@ -1,6 +1,7 @@
 package AddressBook;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -38,17 +39,27 @@ public class Person {
     public String getEmail() { return email; }
 
 
-    public void save(Connection cd) throws SQLException {
-        Statement st = cd.createStatement();
-        st.executeUpdate("INSERT INTO Person " +
-                "VALUES ('Kasia', 'Simpson', 'Mr.', 'Springfield', 2001, '123345', 'emails@emails.pl')");
-
-        cd.close();
-
+    public void save(Connection connection) throws SQLException {
+        Statement st = connection.createStatement();
+        st.executeUpdate(String.format("INSERT INTO Person VALUES('%s','%s','%s','%s','%s','%s','%s')", this.name, this.surname, this.address, this.city, this.postCode, this.phone, this.email));
     }
-    public void search(ConnectionDatabase cd){
-        //cd.ConnectionToDB();
 
+    public static Person search(Connection connection, String firstName) throws SQLException {
+        Statement st = connection.createStatement();
+        ResultSet papakosta = st.executeQuery("SELECT * FROM Person WHERE firstName='"+firstName+"'");
+
+        while(papakosta.next()) {
+            String name = papakosta.getString("firstName");
+            String surname = papakosta.getString("surname");
+            String address = papakosta.getString("address");
+            String city = papakosta.getString("city");
+            String postCode = papakosta.getString("postCode");
+            String phone = papakosta.getString("phone");
+            String email = papakosta.getString("email");
+
+            return new Person(name,surname,address,city,postCode,phone,email);
+        }
+        return null;
     }
 
 }
