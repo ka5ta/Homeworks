@@ -31,13 +31,28 @@ public class PersonTest {
     }
 
     @Test
-    public void Person() throws SQLException, ClassNotFoundException {
-        Person jason = new Person("jason", "Pinakoptas'); CREATE TABLE asdf( someColumn varchar(1)); --", "US", "United States of America", "123456", "111222333", "papakosta7@gmail.com");
+    public void PersonTestSave() throws SQLException, ClassNotFoundException {
+        Person jason = new Person("jason", "Pinakoptas", "US", "United States of America", "123456", "111222333", "papakosta7@gmail.com");
         jason.save(connection);
         List<Person> people = Person.search(connection, "jason");
         for (Person person : people) {
             Assert.assertEquals(jason.getName(), person.getName());
         }
+    }
+
+    @Test
+    public void PersonTestDelete() throws SQLException, ClassNotFoundException {
+        Person peterson = new Person("peterson", "parkonos", "US", "United States of America", "123456", "111222333", "papakosta7@gmail.com");
+        int sizeStarting = Person.search(connection, "peterson").size();
+        System.out.println(sizeStarting);
+        peterson.save(connection);
+        int sizeAfterSave = Person.search(connection, "peterson").size();
+        System.out.println(sizeAfterSave);
+        peterson.delete(connection);
+        int sizeAfterDelete = Person.search(connection, "peterson").size();
+        System.out.println(sizeAfterDelete);
+        Assert.assertEquals(sizeAfterDelete,sizeAfterSave-1);
+        Assert.assertEquals(sizeAfterSave-1,sizeStarting);
     }
 
 
