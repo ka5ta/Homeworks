@@ -1,13 +1,18 @@
+package CaesarCipher;
+
 public class CaesarCipher {
 
-    public static String encrypt(String text, int shift) {
+    public CaesarCipher() {
+    }
+
+    public  String encrypt(String text, int shift) {
         char[] lettersBeforeEncryption = text.toCharArray();
 
         for (int i = 0; i < lettersBeforeEncryption.length; i++) {
             if (Character.isLetter(lettersBeforeEncryption[i])) {
 
                 char startingLetter = Character.isUpperCase(lettersBeforeEncryption[i]) ? 'A' : 'a';
-                char letterIndex = lettersBeforeEncryption[i];
+                int letterIndex = lettersBeforeEncryption[i];
                 letterIndex -= startingLetter; //remove offset so alphabet starts at 0
                 letterIndex += shift; // encryption
 
@@ -20,7 +25,12 @@ public class CaesarCipher {
         return new String(lettersBeforeEncryption);
     }
 
-    public static int positiveModulo(int a, int b) {
+    public String decrypt(String text, int shift){   //abcd - bcde
+        String decryptedText = encrypt(text, -shift);
+        return decryptedText;
+    }
+
+    public  int positiveModulo(int a, int b) {
         int modulo = a % b;
 
         if (modulo < 0) {
@@ -30,4 +40,6 @@ public class CaesarCipher {
         //return modulo < 0 ? modulo+b : modulo;
     }
 
+    public static void main(String[] args) {
+    }
 }
